@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=`, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>demo</title>
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="js/tinymce4.7.5/tinymce.min.js"></script>
+  
+  <!-- <script type="text/javascript" src="js/uploadify/swfobject.js"></script>
+  <script type="text/javascript" src="js/uploadify/uploadify.css"></script>
+  <script type="text/javascript" src="js/uploadify/jquery.uploadify.js"></script> -->
+  <style type="text/css">
+    #tinymceuploadify{
+        display:block;
+    }  
+</style>
+</head>
+<body>
+  <form method="post" action="somepage">
+    　　<textarea name="content" style="width:100%"></textarea>  
+　　</form>
+
+<button id="btn">获取文本内容</button>
+<script type="text/javascript">
+  tinymce.init({
+　  selector: "textarea",//实例化标签
+    language: "zh_CN",//语言包
+    menubar: 'file edit insert view format table',//菜单栏
+    //集成插件
+    plugins: [
+      "advlist autolink lists link image charmap preview",
+      "searchreplace visualblocks fullscreen",
+      "insertdatetime media table contextmenu paste",
+      "emoticons textcolor"
+    ],
+     //工具栏
+　　 toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+　　 toolbar2: "print preview media | forecolor backcolor emoticons",
+     //开启图片上传的高级选项功能
+　　 image_advtab: true,
+    //TinyMCE 会将所有的 font 元素转换成 span 元素
+     convert_fonts_to_spans: true,
+    //换行符会被转换成 br 元素
+     convert_newlines_to_brs: false,
+    //在换行处 TinyMCE 会用 BR 元素而不是插入段落
+     force_br_newlines: false,
+    //当返回或进入 Mozilla/Firefox 时，这个选项可以打开/关闭段落的建立
+     force_p_newlines: false,
+    //这个选项控制是否将换行符从输出的 HTML 中去除。选项默认打开，因为许多服务端系统将换行转换成 <br />，因为文本是在无格式的 textarea 中输入的。使用这个选项可以让所有内容在同一行。
+     remove_linebreaks: false,
+    //不能把这个设置去掉，不然图片路径会出错
+     relative_urls: false,
+    //不允许拖动大小
+     resize: false,
+　});
+//获取输入框的内容
+  $("#btn").click(function(){
+    //获取输入内容带html标签 
+    console.log(tinymce.activeEditor.getContent()); 
+    //获取输入内容纯文本
+    var activeEditor = tinymce.activeEditor; 
+    var editBody = activeEditor.getBody(); 
+    activeEditor.selection.select(editBody); 
+    var text = activeEditor.selection.getContent( { 'format' : 'text' } );
+    console.log(text);
+  });
+  </script>
+</body>
+</html>
